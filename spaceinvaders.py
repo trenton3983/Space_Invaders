@@ -7,18 +7,19 @@ import sys
 from random import shuffle, randrange, choice
 
 #           R    G    B
-WHITE 	= (255, 255, 255)
-GREEN 	= (78, 255, 87)
-YELLOW 	= (241, 255, 0)
-BLUE 	= (80, 255, 239)
-PURPLE 	= (203, 0, 255)
-RED 	= (237, 28, 36)
+WHITE = (255, 255, 255)
+GREEN = (78, 255, 87)
+YELLOW = (241, 255, 0)
+BLUE = (80, 255, 239)
+PURPLE = (203, 0, 255)
+RED = (237, 28, 36)
 
-SCREEN 		= display.set_mode((800,600))
+SCREEN = display.set_mode((800,600))
 FONT = "fonts/space_invaders.ttf"
-IMG_NAMES 	= ["ship", "ship", "mystery", "enemy1_1", "enemy1_2", "enemy2_1", "enemy2_2",
-				"enemy3_1", "enemy3_2", "explosionblue", "explosiongreen", "explosionpurple", "laser", "enemylaser"]
-IMAGES 		= {name: image.load("images/{}.png".format(name)).convert_alpha()
+IMG_NAMES = ["ship", "ship", "mystery", "enemy1_1", "enemy1_2", "enemy2_1", "enemy2_2", "enemy3_1", "enemy3_2",
+			 "explosionblue", "explosiongreen", "explosionpurple", "laser", "enemylaser"]
+
+IMAGES = {name: image.load("images/{}.png".format(name)).convert_alpha()
 				for name in IMG_NAMES}
 
 class Ship(sprite.Sprite):
@@ -393,15 +394,17 @@ class SpaceInvaders(object):
 			if e.type == KEYDOWN:
 				if e.key == K_SPACE:
 					if len(self.bullets) == 0 and self.shipAlive:
-						if self.score < 1000:
+						if self.score < 10:
 							bullet = Bullet(self.player.rect.x+23, self.player.rect.y+5, -1, 15, "laser", "center")
 							self.bullets.add(bullet)
 							self.allSprites.add(self.bullets)
 							self.sounds["shoot"].play()
 						else:
 							leftbullet = Bullet(self.player.rect.x+8, self.player.rect.y+5, -1, 15, "laser", "left")
+							bullet = Bullet(self.player.rect.x + 23, self.player.rect.y + 5, -1, 15, "laser", "center")
 							rightbullet = Bullet(self.player.rect.x+38, self.player.rect.y+5, -1, 15, "laser", "right")
 							self.bullets.add(leftbullet)
+							self.bullets.add(bullet)
 							self.bullets.add(rightbullet)
 							self.allSprites.add(self.bullets)
 							self.sounds["shoot2"].play()
